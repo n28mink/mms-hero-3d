@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My motors Supplies — Demo héroe 3D</title>
+<meta name="description" content="Prueba: héroe 3D con shaders (ThreeUI/MIT) aplicado a My motors Supplies.">
+<link rel="stylesheet" href="./style.css">
+<script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+</head>
+<body>
+<main class="hero">
+  <div class="gl" id="gl"><canvas id="shader"></canvas></div>
+  <div class="vignette"></div>
+
+  <header class="top">
+    <div class="brand"><span class="gear">⚙</span> MY MOTORS SUPPLIES</div>
+    <div class="demo-badge">DEMO · HÉROE 3D</div>
+  </header>
+
+  <div class="copy">
+    <p class="kicker">REPUESTOS DE CARRO · VENEZUELA</p>
+    <h1>Tu carro lo pide.<br><em>Nosotros lo tenemos.</em></h1>
+    <p class="sub">40 repuestos · 12 categorías · 8 marcas. El fondo es un shader 3D en vivo — sin video, sin imágenes pesadas.</p>
+    <div class="row">
+      <a class="cta" href="https://my-motors-supplies.vercel.app/catalogo.html">Ver catálogo
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <div class="themes" role="group" aria-label="Tema del fondo">
+        <button class="chip on" data-theme="naranja">Naranja</button>
+        <button class="chip" data-theme="aurora">Aurora</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="credit">Shader <code>EmeraldHorizon</code> de <a href="https://github.com/MengTo/threeui">MengTo/threeui</a> (MIT), adaptado a JS puro.</p>
+</main>
+
+<script type="module">
+import { initHeroShader } from "./hero-shader.js";
+const hero = initHeroShader(document.getElementById("shader"), { theme: "naranja", glow: 1.15 });
+document.querySelectorAll(".chip").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".chip").forEach((b) => b.classList.remove("on"));
+    btn.classList.add("on");
+    hero.setTheme(btn.dataset.theme);
+  });
+});
+</script>
+</body>
+</html>
